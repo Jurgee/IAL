@@ -92,12 +92,12 @@ void DLL_Init( DLList *list ) {
  * @param list Ukazatel na inicializovanou strukturu dvousměrně vázaného seznamu
  */
 void DLL_Dispose( DLList *list ) {
-	DLLElementPtr elDLL = list->firstElement;
+	DLLElementPtr pointer = list->firstElement;
 	while (list->firstElement != NULL) //zruseni prvku
 	{
 		list->firstElement = list->firstElement->nextElement;
-		free(elDLL);
-		elDLL = list->firstElement;
+		free(pointer);
+		pointer = list->firstElement;
 	}
 
 	list->activeElement = NULL;		//vsechny ukazatele na NULL
@@ -114,25 +114,25 @@ void DLL_Dispose( DLList *list ) {
  * @param data Hodnota k vložení na začátek seznamu
  */
 void DLL_InsertFirst( DLList *list, int data ) {
-	DLLElementPtr DLLElement = (DLLElementPtr) malloc(sizeof(DLLElement));
-	if (DLLElement == NULL) //malloc se nezdaril
+	DLLElementPtr newElement = (DLLElementPtr) malloc(sizeof(newElement));
+	if (newElement == NULL) //malloc se nezdaril
 	{
 		DLL_Error();
 		return;
 	}
-	DLLElement->data = data;
-	DLLElement->previousElement = NULL;
-	DLLElement->nextElement = list->firstElement;
+	newElement->data = data;
+	newElement->previousElement = NULL;
+	newElement->nextElement = list->firstElement;
 
 	if (list->firstElement != NULL) //seznam neni prazdny
 	{
-		list->firstElement->previousElement = DLLElement;
+		list->firstElement->previousElement = newElement;
 	}
 	else //seznam je prazdny
 	{
-		list->lastElement = DLLElement;
+		list->lastElement = newElement;
 	}
-	list->firstElement = DLLElement;
+	list->firstElement = newElement;
 }
 
 /**
@@ -144,25 +144,25 @@ void DLL_InsertFirst( DLList *list, int data ) {
  * @param data Hodnota k vložení na konec seznamu
  */
 void DLL_InsertLast( DLList *list, int data ) {
-	DLLElementPtr DLLElement = (DLLElementPtr) malloc(sizeof(DLLElement));
-	if (DLLElement == NULL) //malloc se nezdaril
+	DLLElementPtr newElement = (DLLElementPtr) malloc(sizeof(newElement));
+	if (newElement == NULL) //malloc se nezdaril
 	{
 		DLL_Error();
 		return;
 	}
-	DLLElement->data = data;
-	DLLElement->nextElement = NULL;
-	DLLElement->previousElement = list->firstElement;
+	newElement->data = data;
+	newElement->nextElement = NULL;
+	newElement->previousElement = list->firstElement;
 
 	if (list->lastElement != NULL) //seznam neni prazdny
 	{
-		list->lastElement->nextElement = DLLElement;
+		list->lastElement->nextElement = newElement;
 	}
 	else //seznam je prazdny
 	{
-		list->firstElement = DLLElement;
+		list->firstElement = newElement;
 	}
-	list->lastElement = DLLElement;
+	list->lastElement = newElement;
 }
 
 /**
