@@ -94,7 +94,7 @@ void Queue_Error( int error_code ) {
  * @param stack Ukazatel na strukturu fronty
  */
 void Queue_Init( Queue *queue ) {
-	if (queue == NULL)
+	if (queue == NULL) //prazdna fronta
 	{
 		Queue_Error(QERR_INIT);
 		return;
@@ -154,7 +154,7 @@ int Queue_IsFull( const Queue *queue ) {
  * @param dataPtr Ukazatel na cílovou proměnnou
  */
 void Queue_Front( const Queue *queue, char *dataPtr ) {
-	if ( Queue_IsEmpty(queue) )
+	if ( Queue_IsEmpty(queue) ) 
 	{
 		Queue_Error(QERR_FRONT);
 		return;
@@ -217,7 +217,7 @@ void Queue_Enqueue( Queue *queue, char data ) {
 		Queue_Error(QERR_ENQUEUE);
 		return;
 	}
-	queue->array[queue->freeIndex] = data;
+	queue->array[queue->freeIndex] = data; 
 	queue->freeIndex = nextIndex(queue->freeIndex);
 }
 
