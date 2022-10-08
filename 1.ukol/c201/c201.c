@@ -196,9 +196,16 @@ void List_DeleteAfter( List *list ){
  */
 void List_InsertAfter( List *list, int data ) {
 	ListElementPtr newElement = (ListElementPtr) malloc(sizeof(newElement));
+	if (!newElement)
+	{
+		List_Error();
+		return;
+	}
+	
 	if (list->activeElement != NULL)
 	{
 		newElement->data = data;
+
 		ListElementPtr pointer = list->activeElement->nextElement;
 		list->activeElement->nextElement = newElement;
 		newElement->nextElement = pointer;
